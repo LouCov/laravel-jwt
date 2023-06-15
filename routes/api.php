@@ -19,13 +19,15 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'auth'
-], function ($router) {
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::post('/refresh', [AuthController::class, 'refresh']);
-    Route::get('/user-profile', [AuthController::class, 'userProfile']);
+Route::middleware('api')->group(function () {
+
+    // Auth routes
+    Route::post('auth/login', [AuthController::class, 'login']);
+    Route::post('auth/register', [AuthController::class, 'register']);
+    Route::post('auth/logout', [AuthController::class, 'logout']);
+    Route::post('auth/refresh', [AuthController::class, 'refresh']);
+    Route::get('auth/user-profile', [AuthController::class, 'userProfile']);
+
+    // Other routes
+
 });
